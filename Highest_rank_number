@@ -1,0 +1,42 @@
+//Complete the method which returns the number which is most frequent in the given input array. 
+//If there is a tie for most frequent number, return the largest number among them.
+
+function highestRank(arr){
+    let times = 0; // for counting how many times number is inside
+    let obj = {key: times, number: 0, numberTwo: 0} // storing numbers with most times
+    // go through array for every element compared with all 
+        for(let i = 0; i < arr.length; i++){
+            for(let j = 0; j < arr.length; j++){
+                if(i === j){ continue }
+                if(arr[j] === arr[i]){
+                    times++;
+                }
+            }
+            if(times > obj.key){
+                obj.key = times;
+                obj.number = arr[i]
+                times = 0;   
+            }else if(arr[i] === obj.number){
+                times = 0;
+                continue;
+            }
+            else if(times === obj.key){
+                obj.numberTwo = arr[i];
+                times = 0;       
+            } 
+            else {
+                times = 0;
+            }
+        }
+        // print bigger than both if there is two numbers with same times
+        if(obj.numberTwo > 0){
+            if(obj.number > obj.numberTwo){
+                return obj.number;
+            }else if(obj.numberTwo > obj.number){
+                return obj.numberTwo;
+            }
+        } else {
+              return obj.number;
+        }
+}
+
